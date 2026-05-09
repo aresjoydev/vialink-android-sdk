@@ -41,7 +41,7 @@ android {
 
 dependencies {
     // ViaLink SDK (로컬 AAR)
-    implementation(files("libs/vialink-android-sdk-3.2.17.aar"))
+    implementation(files("libs/vialink-android-sdk-3.2.18.aar"))
 
     // SDK 런타임 의존성 (AAR에 포함되지 않으므로 앱에서 제공)
     implementation(libs.kotlinx.coroutines.android)
