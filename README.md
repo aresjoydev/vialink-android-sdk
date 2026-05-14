@@ -17,14 +17,27 @@ ViaLink 딥링크 인프라 서비스를 위한 Android SDK입니다.
 
 ## 설치
 
-### Gradle
+### 1) 저장소 등록 (settings.gradle.kts)
 
 ```kotlin
-// build.gradle.kts (app)
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://aresjoydev.github.io/vialink-android-sdk") }
+    }
+}
+```
+
+### 2) 의존성 추가 (app/build.gradle.kts)
+
+```kotlin
 dependencies {
     implementation("com.vialink:sdk:<version>")
 }
 ```
+
+> 최신 버전은 [GitHub 저장소](https://github.com/aresjoydev/vialink-android-sdk)의 release 태그 또는 `https://aresjoydev.github.io/vialink-android-sdk/com/vialink/sdk/maven-metadata.xml` 에서 확인할 수 있습니다.
 
 ## 사용법
 
