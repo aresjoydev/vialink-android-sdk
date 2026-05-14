@@ -1,0 +1,104 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.vialink",
+    "module": "sdk",
+    "version": "3.2.23",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.3.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "sdk-3.2.23.aar",
+          "url": "sdk-3.2.23.aar",
+          "size": 127699,
+          "sha512": "006076b5e74549b98e0b77474964e5c30e93c420de4edbe43a3b0a3bb09a980d78f32dce5d67b62b99ed877ee83f755d916874f8be4ea0ae972feab85f3c740f",
+          "sha256": "8490a926c26aec0a77632c37b8386a82d754fff3d373c8f371feab91eff1b98a",
+          "sha1": "e91f48f2cab10c0dbc661ea1c8dd29f9d5e25627",
+          "md5": "6713a52d7800248332926d9fa7642807"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.15.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.7.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "sdk-3.2.23.aar",
+          "url": "sdk-3.2.23.aar",
+          "size": 127699,
+          "sha512": "006076b5e74549b98e0b77474964e5c30e93c420de4edbe43a3b0a3bb09a980d78f32dce5d67b62b99ed877ee83f755d916874f8be4ea0ae972feab85f3c740f",
+          "sha256": "8490a926c26aec0a77632c37b8386a82d754fff3d373c8f371feab91eff1b98a",
+          "sha1": "e91f48f2cab10c0dbc661ea1c8dd29f9d5e25627",
+          "md5": "6713a52d7800248332926d9fa7642807"
+        }
+      ]
+    }
+  ]
+}
