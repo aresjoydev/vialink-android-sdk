@@ -34,6 +34,16 @@
                     android:host="vialink.app"
                     android:pathPrefix="/test/" />
             </intent-filter>
+
+            <!-- Custom URL Scheme (페이스북/인스타 인앱 브라우저 fallback)
+                 admin console "Custom URL Scheme" 입력값과 정확히 일치해야 한다.
+                 host 는 생략 — slug 가 host 자리에 들어오지만 SDK 는 path 만 사용. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="via-native" />
+            </intent-filter>
         </activity>
     </application>
 

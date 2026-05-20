@@ -15,7 +15,7 @@ android {
         applicationId = "com.vialink.sample"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
+        versionCode = 3
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -25,8 +25,21 @@ android {
         }
     }
 
+    signingConfigs {
+        create("vialink") {
+            storeFile = rootProject.file("../../androidkey.jks")
+            storePassword = "androidkey"
+            keyAlias = "androidkey"
+            keyPassword = "androidkey"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("vialink")
+        }
         release {
+            signingConfig = signingConfigs.getByName("vialink")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -45,7 +58,7 @@ android {
 
 dependencies {
     // ViaLink SDK (로컬 AAR)
-    implementation(files("libs/vialink-android-sdk-3.2.23.aar"))
+    implementation(files("libs/vialink-android-sdk-3.2.24.aar"))
 
     // SDK 런타임 의존성 (AAR에 포함되지 않으므로 앱에서 제공)
     implementation(libs.kotlinx.coroutines.android)
