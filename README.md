@@ -142,6 +142,42 @@ lifecycleScope.launch {
 }
 ```
 
+## 주의사항
+
+### 디퍼드 딥링크 — Android Auto Backup
+
+Android 6.0 이상에서는 앱 데이터가 Google Drive에 자동 백업됩니다. SDK가 첫 실행 여부를 `SharedPreferences`에 저장하기 때문에, **앱 삭제 후 재설치 시 백업이 복원되어 디퍼드 딥링크 매칭이 발동하지 않을 수 있습니다**.
+
+재설치 후에도 디퍼드 딥링크가 필요하다면 아래 백업 제외 규칙을 추가하세요.
+
+**`res/xml/data_extraction_rules.xml`** (Android 12+):
+```xml
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="vialink_sdk"/>
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="vialink_sdk"/>
+    </device-transfer>
+</data-extraction-rules>
+```
+
+**`res/xml/backup_rules.xml`** (Android 11 이하):
+```xml
+<full-backup-content>
+    <exclude domain="sharedpref" path="vialink_sdk.xml"/>
+</full-backup-content>
+```
+
+`AndroidManifest.xml`에서 두 파일을 연결합니다:
+```xml
+<application
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:fullBackupContent="@xml/backup_rules"
+    ...>
+```
+
 ## 샘플 프로젝트
 
 `sample/` 디렉토리에서 실행 가능한 샘플 앱을 확인하세요.
