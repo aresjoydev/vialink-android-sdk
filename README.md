@@ -1,23 +1,25 @@
 # ViaLink Android SDK
 
-ViaLink 딥링크 인프라 서비스를 위한 Android SDK입니다.
+**English** | [한국어](README.ko.md)
 
-## 특징
+Android SDK for the ViaLink deep link infrastructure service.
 
-- **딥링크 라우팅** — App Links / Custom Scheme 자동 처리
-- **디퍼드 딥링킹** — 앱 설치 후 첫 실행 시 핑거프린트 기반 매칭
-- **이벤트 추적** — 커스텀 이벤트 배치 전송
-- **결제 어트리뷰션** — 결제 시도 기록 + 자동 link_id 첨부
-- **링크 생성** — 앱 내에서 딥링크 생성 (static/dynamic)
+## Features
 
-## 요구사항
+- **Deep link routing** — automatic handling of App Links / Custom Schemes
+- **Deferred deep linking** — fingerprint-based matching on the first launch after install
+- **Event tracking** — batched delivery of custom events
+- **Payment attribution** — records payment attempts and automatically attaches `link_id`
+- **Link creation** — generate deep links from within the app (static/dynamic)
+
+## Requirements
 
 - Android API 24 (7.0)+
 - Kotlin 1.9+
 
-## 설치
+## Installation
 
-### 1) 저장소 등록 (settings.gradle.kts)
+### 1) Register the repository (settings.gradle.kts)
 
 ```kotlin
 dependencyResolutionManagement {
@@ -29,7 +31,7 @@ dependencyResolutionManagement {
 }
 ```
 
-### 2) 의존성 추가 (app/build.gradle.kts)
+### 2) Add the dependency (app/build.gradle.kts)
 
 ```kotlin
 dependencies {
@@ -37,41 +39,41 @@ dependencies {
 }
 ```
 
-> 최신 버전은 [GitHub 저장소](https://github.com/aresjoydev/vialink-android-sdk)의 release 태그 또는 `https://aresjoydev.github.io/vialink-android-sdk/com/vialink/sdk/maven-metadata.xml` 에서 확인할 수 있습니다.
+> Check the latest version from the release tags on the [GitHub repository](https://github.com/aresjoydev/vialink-android-sdk), or at `https://aresjoydev.github.io/vialink-android-sdk/com/vialink/sdk/maven-metadata.xml`.
 
-## 사용법
+## Usage
 
-### 1. 초기화
+### 1. Initialization
 
 ```kotlin
-// Application.onCreate 에서 초기화
+// Initialize in Application.onCreate
 ViaLinkSDK.init(this, "YOUR_API_KEY")
 ```
 
-### 2. 딥링크 콜백
+### 2. Deep link callbacks
 
 ```kotlin
-// App Link / 커스텀 스킴 수신
+// Receive App Links / custom schemes
 ViaLinkSDK.onDeepLink { data ->
-    Log.d("ViaLink", "경로: ${data.path}")
-    Log.d("ViaLink", "파라미터: ${data.params}")
+    Log.d("ViaLink", "path: ${data.path}")
+    Log.d("ViaLink", "params: ${data.params}")
 }
 
-// 디퍼드 딥링크 (첫 설치 후 매칭)
+// Deferred deep link (matched after the first install)
 ViaLinkSDK.onDeferredDeepLink { data, error ->
     if (error != null) {
-        Log.e("ViaLink", "매칭 실패: ${error.message}")
+        Log.e("ViaLink", "match failed: ${error.message}")
         return@onDeferredDeepLink
     }
     if (data != null) {
-        Log.d("ViaLink", "디퍼드: ${data.path}")
+        Log.d("ViaLink", "deferred: ${data.path}")
     } else {
-        Log.d("ViaLink", "매칭 결과 없음 (Organic)")
+        Log.d("ViaLink", "no match (organic)")
     }
 }
 ```
 
-**중요**: Intent 처리를 위해 Activity 에서 `handleIntent` 를 호출해야 합니다.
+**Important**: You must call `handleIntent` in your Activity to process intents.
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -90,18 +92,18 @@ class MainActivity : ComponentActivity() {
 ### 3. Pull API
 
 ```kotlin
-// 동기 (캐시된 값 즉시 반환)
+// Synchronous (returns the cached value immediately)
 val deepLink = ViaLinkSDK.getDeepLinkData()
 val deferred = ViaLinkSDK.getDeferredLinkData()
 
-// 비동기 (결과 도착까지 대기, 코루틴 환경)
+// Asynchronous (waits until the result arrives, in a coroutine context)
 lifecycleScope.launch {
-    val deepLinkAsync = ViaLinkSDK.awaitDeepLinkData()    // 3초 타임아웃
-    val deferredAsync = ViaLinkSDK.awaitDeferredLinkData() // 결과까지 대기
+    val deepLinkAsync = ViaLinkSDK.awaitDeepLinkData()    // 3-second timeout
+    val deferredAsync = ViaLinkSDK.awaitDeferredLinkData() // waits until the result
 }
 ```
 
-### 4. 이벤트 추적
+### 4. Event tracking
 
 ```kotlin
 ViaLinkSDK.track("purchase", mapOf(
@@ -111,7 +113,7 @@ ViaLinkSDK.track("purchase", mapOf(
 ))
 ```
 
-### 5. 결제 추적
+### 5. Payment tracking
 
 ```kotlin
 lifecycleScope.launch {
@@ -127,7 +129,7 @@ lifecycleScope.launch {
 }
 ```
 
-### 6. 링크 생성
+### 6. Link creation
 
 ```kotlin
 lifecycleScope.launch {
@@ -135,20 +137,20 @@ lifecycleScope.launch {
         path = "/product/12345",
         data = mapOf("promo_code" to "FRIEND_SHARE"),
         campaign = "referral",
-        linkType = "dynamic" // 클릭 추적 필요 시
+        linkType = "dynamic" // when click tracking is needed
     )
-    result.onSuccess { url -> Log.d("ViaLink", "생성된 링크: $url") }
-    result.onFailure { err -> Log.e("ViaLink", "생성 실패: ${err.message}") }
+    result.onSuccess { url -> Log.d("ViaLink", "created link: $url") }
+    result.onFailure { err -> Log.e("ViaLink", "creation failed: ${err.message}") }
 }
 ```
 
-## 주의사항
+## Notes
 
-### 디퍼드 딥링크 — Android Auto Backup
+### Deferred deep link — Android Auto Backup
 
-Android 6.0 이상에서는 앱 데이터가 Google Drive에 자동 백업됩니다. SDK가 첫 실행 여부를 `SharedPreferences`에 저장하기 때문에, **앱 삭제 후 재설치 시 백업이 복원되어 디퍼드 딥링크 매칭이 발동하지 않을 수 있습니다**.
+On Android 6.0 and above, app data is automatically backed up to Google Drive. Because the SDK stores the first-launch flag in `SharedPreferences`, **the backup may be restored on reinstall after uninstall, which can prevent deferred deep link matching from firing**.
 
-재설치 후에도 디퍼드 딥링크가 필요하다면 아래 백업 제외 규칙을 추가하세요.
+If you need deferred deep linking to work even after reinstall, add the backup exclusion rules below.
 
 **`res/xml/data_extraction_rules.xml`** (Android 12+):
 ```xml
@@ -162,14 +164,14 @@ Android 6.0 이상에서는 앱 데이터가 Google Drive에 자동 백업됩니
 </data-extraction-rules>
 ```
 
-**`res/xml/backup_rules.xml`** (Android 11 이하):
+**`res/xml/backup_rules.xml`** (Android 11 and below):
 ```xml
 <full-backup-content>
     <exclude domain="sharedpref" path="vialink_sdk.xml"/>
 </full-backup-content>
 ```
 
-`AndroidManifest.xml`에서 두 파일을 연결합니다:
+Wire both files in `AndroidManifest.xml`:
 ```xml
 <application
     android:allowBackup="true"
@@ -178,14 +180,14 @@ Android 6.0 이상에서는 앱 데이터가 Google Drive에 자동 백업됩니
     ...>
 ```
 
-## 샘플 프로젝트
+## Sample project
 
-`sample/` 디렉토리에서 실행 가능한 샘플 앱을 확인하세요.
+See the runnable sample app in the `sample/` directory.
 
-## 문서
+## Documentation
 
-- [SDK 가이드](https://docs.vialink.app/sdk/android)
+- [SDK Guide](https://docs.vialink.app/sdk/android)
 
-## 라이선스
+## License
 
 MIT License — Aresjoy Inc.
