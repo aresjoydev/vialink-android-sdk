@@ -197,7 +197,7 @@ Android 6.0 이상에서는 앱 데이터가 Google Drive에 자동 백업됩니
 
 ## 문서
 
-- [SDK 가이드](https://docs.vialink.app/sdk/android)
+- [SDK 가이드](https://docs.vialink.app/#sdk-android-install)
 
 ## 라이선스
 

@@ -199,7 +199,7 @@ See the runnable sample app in the `sample/` directory.
 
 ## Documentation
 
-- [SDK Guide](https://docs.vialink.app/sdk/android)
+- [SDK Guide](https://docs.vialink.app/#sdk-android-install)
 
 ## License
 
