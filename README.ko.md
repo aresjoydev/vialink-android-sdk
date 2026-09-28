@@ -213,4 +213,5 @@ Android 6.0 이상에서는 앱 데이터가 Google Drive에 자동 백업됩니
 
 ## 라이선스
 
-MIT License — Aresjoy Inc.
+전용 라이선스 — © 2026 Aresjoy Inc. All rights reserved.
+사용 조건은 [ViaLink 이용약관](https://vialink.app/terms?lang=ko)을 따릅니다. 자세한 내용은 [LICENSE](LICENSE)를 참고하세요.
